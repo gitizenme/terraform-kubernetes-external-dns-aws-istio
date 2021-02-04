@@ -32,7 +32,9 @@ resource "kubernetes_cluster_role" "this" {
     ]
 
     resources = [
+      "services",
       "endpoints",
+      "pods"
     ]
 
     verbs = [
@@ -76,6 +78,7 @@ resource "kubernetes_cluster_role" "this" {
   rule {
     api_groups = [
       "extensions",
+      "networking.k8s.io"
     ]
 
     resources = [
@@ -98,6 +101,22 @@ resource "kubernetes_cluster_role" "this" {
     ]
 
     verbs = [
+      "list",
+      "watch",
+    ]
+  }
+  rule {
+    api_groups = [
+      "networking.istio.io",
+    ]
+
+    resources = [
+      "gateways", 
+      "virtualservices",
+    ]
+
+    verbs = [
+      "get",
       "list",
       "watch",
     ]
@@ -144,7 +163,7 @@ resource "kubernetes_deployment" "this" {
       "field.cattle.io/description" = "AWS External DNS"
     }
   }
-
+  
   spec {
 
     replicas = var.k8s_replicas
@@ -204,6 +223,8 @@ resource "kubernetes_deployment" "this" {
           args = [
             "--source=service",
             "--source=ingress",
+            "--source=istio-gateway",
+            "--source=istio-virtualservice",
             "--domain-filter=${var.domain}",
             "--provider=aws",
             "--policy=upsert-only",
