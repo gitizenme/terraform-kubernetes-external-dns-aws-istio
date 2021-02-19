@@ -43,3 +43,9 @@ variable "k8s_cluster_name" {
   description = "Current Cluster Name"
   type        = string
 }
+
+variable "aws_zone_type" {
+  description = "Route 53 DNS Zone Type: public | private"
+  type        = string
+  default     = "public"
+}

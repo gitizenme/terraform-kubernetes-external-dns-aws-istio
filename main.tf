@@ -228,7 +228,7 @@ resource "kubernetes_deployment" "this" {
             "--domain-filter=${var.domain}",
             "--provider=aws",
             "--policy=upsert-only",
-            "--aws-zone-type=public",
+            "--aws-zone-type=${var.aws_zone_type}",
             "--registry=txt",
             "--txt-owner-id=${var.hosted_zone_id}",
           ]
