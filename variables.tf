@@ -49,3 +49,9 @@ variable "aws_zone_type" {
   type        = string
   default     = "public"
 }
+
+variable "sync_policy" {
+  description = "Route 53 DNS Zone Type: public | private"
+  type        = string
+  default     = "upsert-only" # choices are: sync, upsert-only, create-only
+}
