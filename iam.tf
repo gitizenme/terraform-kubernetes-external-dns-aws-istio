@@ -12,7 +12,7 @@ data "aws_iam_policy_document" "eks_assume_role" {
 }
 
 resource "aws_iam_role" "external_dns" {
-  name        = "eks-istio-external-dns-${lower(var.hosted_zone_id)}"
+  name        = "eks-aws-eks-istio-external-dns-viewer-${lower(var.hosted_zone_id)}"
   description = "Permissions required by the Kubernetes AWS EKS External Name controller to do it's job."
   path        = "/"
 
@@ -38,7 +38,7 @@ data "aws_iam_policy_document" "external_dns" {
 }
 
 resource "aws_iam_policy" "external_dns" {
-  name        = "eks-istio-external-dns-${lower(var.hosted_zone_id)}"
+  name        = "eks-aws-eks-istio-external-dns-viewer-${lower(var.hosted_zone_id)}"
   description = "Allows access to resources needed to run external dns."
   policy      = data.aws_iam_policy_document.external_dns.json
 }
