@@ -26,6 +26,11 @@ variable "hosted_zone_id" {
   type        = string
 }
 
+variable "annotation_filter" {
+  description = "A label name which determines which resources are targeted by this instance of external-dns, defaults to all sources"
+  type        = string
+  default     = "all sources"
+}
 
 variable "external_dns_version" {
   description = "The AWS External DNS version to use. See https://github.com/kubernetes-sigs/external-dns/releases for available versions"
